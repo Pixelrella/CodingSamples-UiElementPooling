@@ -50,3 +50,5 @@ for (int i = 0; i < inventoryItems.Count; i++)
 The cached containers are stored with a string id which means that string comparison is used when retrieving a container. String comparison does create garbage that needs to be collected. This could become a performance concern when containers are retrieved frequently. An example would be when an outside function needs to update some part of specific ui elements. Let's say that there is an animation function that invokes a change of background on every odd element's background every two seconds. If this function would poll for all odd elements ever so often, it would be recommended not to use the string id of the data element for identification.
 ### Setup
 Since UiElementContainer is typed, a new prefab and inheriting component needs to be create for each new type of UI element that wants to profit from the pooling and culling.
+### Ui element Init call
+The init call could be extracted so that it is only called when the element is instantiated by the pool, not every time the UI element is made visible.
