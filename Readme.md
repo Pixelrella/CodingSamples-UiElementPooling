@@ -14,13 +14,16 @@ This has the advantage that memory does not need to be allocated over and over a
 A number of elements can also be pre-warmed during the loading screen to avoid hiccups during play time. Or the size of the pool and thus the amount of elements existing at the same time can be controlled. This can be useful when catering optimal performance to devices with different amount of memory available.
 
 ## The container - connection between culling and pooling
-To be able to reuse this culling and pooling system for a variety of different UI elements that appear in lists, I created these two generic classes. One of the classes is a base class for a component that needs to be attached to a Unity gameObject: the UiElementContainer'. The other class, 'UiElementContainerCache', is a storage for the instantiated gameObjects with that component.
+To be able to reuse this culling and pooling system for a variety of different UI elements that appear in lists, I created the following two generic classes. `UiElementContainer`: a base class for a component that needs to be attached to a Unity gameObject. 
+`UiElementContainerCache`: a runtime lookup table for the instantiated gameObjects with the `UiElementContainer` component.
 
-In order for the scrollable list to maintain its content size, each cullable UI element is parented by an 'UiElementContainer'. The container is called by the culler to signal whether an elements just went visible or invisible. When an element becomes invisible, it's container returns it to the pool. When made visible, the container calls the setup functions on the element with the data that needs to be shown at this position of the scrolling list.
+### `UiElementContainer`
+In order for the scrollable list to maintain its content size, each cullable UI element is parented by an `UiElementContainer`. The container is called by the culler to signal whether an element just went visible or invisible. When an element becomes invisible, it's container returns it to the pool. When made visible, the container calls the setup functions on the element with the data that needs to be shown at this position of the scrolling list.
 
-In the class that populates the list, a cache of containers connects the UI elements with their data elements. Each container is initialised with a callback for setting up the UI element and showing the data at that index when it is made visible.
+### `UiElementContainerCache`
+In the class that populates the list, a cache of containers connects the UI elements with their respective data elements. Each container is initialised with a callback for setting up the UI element and showing the data at that index when it is made visible.
 
-'''
+```
 public Transform listRoot;
 public InventoryUiElement inventoryUiElementPrefab;
 public InventoryUiElementContainer<InventoryUiElement> inventoryUiElementContainerPrefab;
@@ -40,7 +43,7 @@ for (int i = 0; i < inventoryItems.Count; i++)
   	inventoryUiElementPrefab.gameObject
   );
 }
-'''
+```
 
 ## Known drawbacks
 ### String comparison
