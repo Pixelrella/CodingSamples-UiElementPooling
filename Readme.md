@@ -1,7 +1,7 @@
 # UI list performance
 
 ## Overview
-These classes are part of a UI performance system. This system disables and enables (culls) UI elements in a scrolling list based on whether they are visible or not. When they are not visible, the UI elements are stored in a pool for later reuse. When made visible, an element is retrieved from the pool.
+The classes provided in this coding sample are part of a UI performance system. This system disables and enables (culls) UI elements in a scrolling list based on whether they are visible or not. When they are not visible, the UI elements are stored in a pool for later reuse. When made visible, an element is retrieved from the pool. Both the pooling and the culling system are not provided in this repository. This repository is only showing how the connection between both is created with generic classes.
 
 ## Culling System
 The culling system uses a Unity `ScrollRect` to figure out whether an element is in the visible scroll section or not. It is connected to the Unity action that is called when scrolling happens. Based on the `RectTransform` which knows the bounds of the element, the element will be called to set itself active or inactive.
@@ -17,10 +17,10 @@ A number of elements can also be pre-warmed during the loading screen to avoid h
 To be able to reuse this culling and pooling system for a variety of different UI elements that appear in lists, I created the following two generic classes. `UiElementContainer`: a base class for a component that needs to be attached to a Unity gameObject. 
 `UiElementContainerCache`: a runtime lookup table for the instantiated gameObjects with the `UiElementContainer` component.
 
-### `UiElementContainer`
+### `UiElementContainer<T>`
 In order for the scrollable list to maintain its content size, each cullable UI element is parented by an `UiElementContainer`. The container is called by the culler to signal whether an element just went visible or invisible. When an element becomes invisible, it's container returns it to the pool. When made visible, the container calls the setup functions on the element with the data that needs to be shown at this position of the scrolling list.
 
-### `UiElementContainerCache`
+### `UiElementContainerCache<TC, T>`
 In the class that populates the list, a cache of containers connects the UI elements with their respective data elements. Each container is initialised with a callback for setting up the UI element and showing the data at that index when it is made visible.
 
 ```
