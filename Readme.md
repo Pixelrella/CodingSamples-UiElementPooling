@@ -5,9 +5,9 @@ The classes provided in this coding sample are part of a UI performance system.
 
 This UI performace system disables and enables (culls) UI elements in a scrolling list based on whether they are visible. When not visible, the UI elements are stored in a pool for later reuse. When made visible, an element is retrieved from the pool and set up with data. 
 
-A different approach would be to use pagination to split the list into several pages, this solution catered to the need of keeping all the elements the list in one page to let the player scroll through the whole list without needing to switch pages. 
+A different approach would be to use pagination to split the list into several pages. This culling solution catered to the need of keeping all the elements the list in one page to let the player scroll through the whole list without needing to switch pages. 
 
-Both the pooling and the culling system are not provided in this repository since they were not developed by me. The existing system was used for a specfic screen. I made it generic to be able to use it for other UI screens that also showed performance issues. 
+Both the pooling and the culling system are not provided in this repository since they were not developed by me. The existing system was used for a specfic screen. I implemented two generic classes to be able to use it for other UI screens that also showed performance issues. 
 
 ## The container - connection between culling and pooling
 To reuse the culling and pooling system for a variety of different UI elements that appear in lists, I created the following two generic classes: 
