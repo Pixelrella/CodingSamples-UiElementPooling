@@ -53,5 +53,5 @@ The cached containers are stored with a string id which means that string compar
 ### Somewhat clunky setup
 A new inheriting container component needs to be created for each new type of UI element that wants to profit from the pooling and culling. These container classes are empty besides inheriting from MonoBehavior and the typing the generic container.
 
-### Decouple initialization and showing data
+### Coupled element initialization and data setup
 The init call could be extracted so that it is only called when the element is instantiated by the pool, not every time the UI element is made visible.
