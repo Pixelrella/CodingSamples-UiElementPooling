@@ -48,7 +48,10 @@ for (int i = 0; i < inventoryItems.Count; i++)
 
 ## Known drawbacks
 ### String comparison
-The cached containers are stored with a string id which means that string comparison is used when retrieving a container. String comparison does create garbage that needs to be collected. This could become a performance concern when containers are retrieved frequently. In the situation of a player scrolling a list me and my team did not encounter any issues.
+The cached containers are stored with a string id which means that string comparison is used when retrieving a container. String comparison does create garbage that needs to be collected. This could become a performance concern when containers are retrieved frequently. In the situation of a player scrolling a list my team and I did not encounter any issues.
 
 ### Somewhat clunky setup
-Since UIElementContainer is typed, a new prefab and inheriting component needs to be created for each new type of UI element that wants to profit from the pooling and culling.
+A new inheriting container component needs to be created for each new type of UI element that wants to profit from the pooling and culling. These container classes are empty besides inheriting from MonoBehavior and the typing the generic container.
+
+### Decouple initialization and showing data
+The init call could be extracted so that it is only called when the element is instantiated by the pool, not every time the UI element is made visible.
